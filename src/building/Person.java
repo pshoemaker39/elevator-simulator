@@ -11,11 +11,13 @@ package building;
 // Each person will need to record their ride-time duration in seconds (enter - exit)
 
 
+import elevator.Direction;
 
 public class Person {
 
     private String id;
     private int desiredFloor;
+    private Direction direction;
     private long waitStart;
     private long rideEnd;
 
@@ -28,6 +30,8 @@ public class Person {
     public String getId() {
         return id;
     }
+
+
 
     public int getDesiredFloor() {
         return desiredFloor;

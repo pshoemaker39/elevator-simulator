@@ -1,4 +1,4 @@
-package elevator;
+package _old;
 
 // Elevators will travel up and down to the various floors of the building
 // Elevators will hold Person objects. Person objects enter and exit the elevator.
@@ -14,14 +14,15 @@ package elevator;
 import building.Building;
 import building.Floor;
 import building.Person;
+import elevator.Direction;
+import elevator.Request;
 import gui.ElevatorDisplay;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 //elevators changes its own state
 
-public class Elevator {
+public class _Elevator {
 
     public int id;
     private Direction direction;
@@ -29,7 +30,6 @@ public class Elevator {
     private int targetFloor;
     private final ArrayList<Request> floorRequests = new ArrayList<>();
     private final ArrayList<Person> riders = new ArrayList<>();
-    private final ArrayList<Integer> stops = new ArrayList<>();
     private long idleTime;
     private boolean isExchangingPassengers;
     private long remainingDoorTime;
@@ -46,7 +46,7 @@ public class Elevator {
     public static Integer MAX_PERSONS_PER_ELEVATOR;
 
 
-    public Elevator(int idIn) {
+    public _Elevator(int idIn) {
         this.id = idIn;
         this.currentFloor = 1;
         this.direction = Direction.IDLE;
@@ -56,7 +56,7 @@ public class Elevator {
     }
 
     public void addFloorRequest(Request r) {
-
+        System.out.println("+++++++++++++");
         this.floorRequests.add(r);
     }
 
@@ -261,13 +261,6 @@ public class Elevator {
 
     }
 
-    private void getNextFloorRequest() {
-        Request next = floorRequests.get(0);
-        setTargetFloor(next.getRequestStart());
-        setDirection(next.getRequestDirection());
-        floorRequests.remove(0);
-    }
-
 
 
     private void createRiderRequest(Person p) {
@@ -276,72 +269,11 @@ public class Elevator {
 
     }
 
-
-    private void floorToElevator() {
-        Building bld = Building.getInstance();
-        Floor flr = bld.getFloor(getCurrentFloor());
-        int waiting = flr.getWaitingPeople(getDirection()).size();
-
-        if(waiting > 0) {
-
-            for(int i = 0; i < waiting; i++) {
-                Person waitingPerson = flr.getWaitingPeople(getDirection()).get(i);
-                riders.add(waitingPerson);
-                flr.removePersonFromFloor(waitingPerson);
-                System.out.println("Rider add to elevator, remove from floor");
-            }
-
-//            flr.getWaitingPeople(getDirection()).forEach((person) -> {
-//                //move to elevator
-//                riders.add(person);
-//                //remove from floor
-//                flr.removePersonFromFloor(person);
-//
-//            });
-        }
-    }
-
-    private void updateRiderRequests() {
-
-        riders.forEach((rider)->{
-            if(!stops.contains(rider.getDesiredFloor())) {
-                stops.add(rider.getDesiredFloor());
-            }
-        });
-        Collections.sort(stops);
-        System.out.println("Sorted stops list: ");
-        stops.forEach((stop)->{
-            System.out.println("Floor: "+stop);
-        });
-
-        //TODO remove, testing value here
-        setTargetFloor(stops.get(0));
-
-        //TODO do nothing? loop through array list at each floor?
-//        if(getDirection() == Direction.DOWN) {
-//            setTargetFloor(stops.get(0));
-//        }
-    }
-
-    private void elevatorToFloor() {
-        Building bld = Building.getInstance();
-        Floor flr = bld.getFloor(getCurrentFloor());
-
-        if(getRidersSize()>0) {
-            for(int i = 0; i < getRidersSize(); i++) {
-                Person rider = this.riders.get(i);
-                if(rider.getDesiredFloor() == getCurrentFloor()){
-                    flr.addArrivedPerson(rider);
-                    this.riders.remove(i);
-                    System.out.println("Rider add to floor, remove from elevator");
-                }
-            }
-        }
-
-    }
-
     private void movePeopleFromFloorToElevator(int floor, Direction direction) {
         //add request end
+
+
+
         Building bld = Building.getInstance();
         Floor flr = bld.getFloor(floor);
         int waiting = flr.getWaitingPeople(direction).size();
@@ -416,36 +348,98 @@ public class Elevator {
 
         ElevatorDisplay.getInstance().updateElevator(getId(), getCurrentFloor(), getRidersSize(), matchDirection(getDirection()));
 
+        if(getId()==1) {
+
+            System.out.println("-------------------------------------- ELEVATOR " + getId() + " Activity-------------------------------------");
+//            System.out.println("Total: "+this.totalTime);
+//            System.out.println("Door time remaining: "+this.remainingDoorTime);
+//            System.out.println("Exchanging: "+this.isExchangingPassengers);
+//            System.out.println("Current Floor: "+getCurrentFloor());
+//            System.out.println("Riders: "+this.riders.size());
+            System.out.println("Floor Requests: " + this.floorRequests.size());
+            System.out.println("Direction: " + getDirection());
+            System.out.println("Target: " + this.targetFloor);
+//            System.out.println("Idle time: "+this.idleTime);
+//            System.out.println("\n");
+            System.out.println("*****************************************************************************************************************");
+        }
+
+        if((getIdleTime() == 10000) && (getCurrentFloor()==1)) {
+            setDirection(Direction.IDLE);
+            ElevatorDisplay.getInstance().shutdown();
+        }
+
+
+
+        /////////////////// BEGIN EVALUATING PASSENGER EXCHANGES //////////////////////////////
+
+        //check passenger exchange in progress
+        if ((getRemainingDoorTime() > 0) && (getPassengerExchangeStatus() == true)) {
+            //reduce remaining door time by 1 second
+            decrementDoorTime(time);
+            if(getRemainingDoorTime() == 0) {
+                endPassengerExchange();
+            }
+        }
+
+        /////////////////// END EVALUATING PASSENGER EXCHANGES //////////////////////////////
+
+
+
         //check idle
-        if(getDirection() == Direction.IDLE) {
+        else if(getDirection() == Direction.IDLE) {
             //is idle
 
-            if(getFloorRequestsSize()>0) {
+            System.out.println("Elevator "+getId()+" is idle");
 
-                getNextFloorRequest();
+            //check for pending requests
+            if(hasPendingRequests()) {
+                //has pending requests
 
-                System.out.println("Elevator "+getId()+" target floor "+getTargetFloor() +" Direction: "+getDirection());
+                //set target floor
+                setTargetFloor(getRequestFromIdle());
+
+                //evaluate current floor
+                //check floor has requests waiting
+
+                if(isCurrentFloorTargetFloor()) {
+
+                    //current floor is target floor
+                    beginPassengerExchange();
+
+                    decrementDoorTime(time);
+
+                } else {
+                    //current floor is not target floor
+                    indexFloors();
+                }
 
 
             } else {
-                //TODO no requests, increment idle count
+                //no pending requests, increment idle timer
+                incrementIdleTimer(time);
             }
         }
 
         else if(getDirection() != Direction.IDLE) {
-            //System.out.println("Elevator "+ getId()+" is not idle");
-            System.out.println("Elevator "+getId()+" target floor "+getTargetFloor() +" Direction: "+getDirection());
+            //not idle
 
-            if(getTargetFloor() == getCurrentFloor()) {
-                System.out.println("Passenger exchange");
-                elevatorToFloor();
-                floorToElevator();
-                updateRiderRequests();
-                //TODO add logic to wait for exchange, then index
+            checkFloorForRiderRequests();
 
-            } else {
-                System.out.println("Elevator "+getId()+" target floor "+getTargetFloor() +" Direction: "+getDirection());
-                System.out.println("Index floors");
+            if(floorHasRequestsInCurrentDirection()) {
+                beginPassengerExchange();
+            }
+
+
+            if(isFloorRequested()) {
+                //floor is requested
+                beginPassengerExchange();
+
+            } else if(getPassengerExchangeStatus() && getRemainingDoorTime()>0) {
+              decrementDoorTime(time);
+
+            } else{
+                //floor is not requested
                 indexFloors();
             }
         }

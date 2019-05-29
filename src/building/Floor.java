@@ -21,14 +21,9 @@ public class Floor {
     public void addArrivedPerson(Person p) {
         p.setRideEnd(System.currentTimeMillis());
         arrivedPerson.add(p);
-        System.out.println("A person just arrived on floor: "+getFloorNum());
     }
 
     public void addPerson(Person p) {
-        if (p == null) {
-            System.out.println("Null person");
-        }
-        //System.out.println("Added person to queue. "+p.getId());
 
         //check direction person is waiting for
         if(p.getDesiredFloor()>getFloorNum()) {
@@ -42,11 +37,28 @@ public class Floor {
     }
 
     public int getFloorNum() {
-        return floorNum;
+        return this.floorNum;
+    }
+
+    public void removePersonFromFloor(Person removePerson) {
+
+        for(int i = 0; i < this.waitingForDescendingElevator.size(); i++) {
+            if(this.waitingForDescendingElevator.get(i).equals(removePerson)) {
+                this.waitingForDescendingElevator.remove(i);
+            }
+        }
+
+        for(int i = 0; i < this.waitingForAscendingElevator.size(); i++) {
+            if(this.waitingForAscendingElevator.get(i).equals(removePerson)) {
+                this.waitingForAscendingElevator.remove(i);
+            }
+        }
     }
 
     public ArrayList<Person> getWaitingPeople(Direction d) {
         //when passed a direction on the floor, filter the waiting people for that direction
+
+
 
         if(d == Direction.UP) {
             //return people waiting to go up

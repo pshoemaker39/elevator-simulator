@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class ElevatorController {
 
-    private static ArrayList<Elevator> elevators = new ArrayList<>();
+    private ArrayList<Elevator> elevators = new ArrayList<>();
     private static ElevatorController instance;
 
 
@@ -32,13 +32,11 @@ public class ElevatorController {
     public void moveElevators(long time) {
 
         for (int i = 0; i < getElevators().size(); i++) {
-            System.out.println(getElevator(i).getId());
             getElevator(i).move(time);
         }
     }
 
-    public static void createElevator(int id) {
-        //System.out.println("incoming id "+id);
+    public void createElevator(int id) {
         Elevator elevator = new Elevator(id);
         elevators.add(elevator);
     }

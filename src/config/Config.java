@@ -11,39 +11,41 @@ import java.util.HashMap;
 
 public class Config {
 
-    private HashMap<String, String> values = new HashMap<>();
+    private static HashMap<String, String> values = new HashMap<>();
 
-    private void setValuesFromFile() {
+    private static void setValuesFromFile() {
 
         FileReader reader;
         try {
-            // Create a FileReader object using your filename
-            reader = new FileReader("input.json");
+            reader = new FileReader("src/input.json");
         } catch (
                 FileNotFoundException e) {
             e.printStackTrace();
             return;
         }
+
         JSONParser jsonParser = new JSONParser();
-        JSONObject jObj;
+        JSONObject configObject;
 
         try {
-            // Create a JSONParser using the FileReader
-            jObj = (JSONObject) jsonParser.parse(reader);
+            configObject = (JSONObject) jsonParser.parse(reader);
 
         } catch (IOException | ParseException e) {
             e.printStackTrace();
             return;
         }
 
+        configObject.forEach((key, value) -> {
+            values.put(key.toString(), value.toString());
+        });
+
     }
 
 
-    public HashMap<String, String> getValues() {
-
+    public static HashMap<String, String> getValues() {
         setValuesFromFile();
 
-        return this.values;
+        return values;
 
     }
 

@@ -9,13 +9,14 @@ import java.util.HashMap;
 public class Building {
 
     public static int NUM_FLOORS;
-    public static Building instance;
-    private static HashMap<Integer, Floor> floors = new HashMap<>();
+    private static Building instance;
+    private HashMap<Integer, Floor> floors = new HashMap<>();
 
 
     private Building() {
         for (int i = 1; i <= NUM_FLOORS; i++) {
-            floors.put(i, new Floor(i));
+            Floor floor = new Floor(i);
+            this.floors.put(i, floor);
         }
     }
 
@@ -23,7 +24,6 @@ public class Building {
         if(instance == null) {
             instance = new Building();
         }
-        //System.out.println("Got building instance "+instance);
         return instance;
     }
 
@@ -31,14 +31,11 @@ public class Building {
         this.NUM_FLOORS = floors;
     }
 
-    public void addPerson(Person p, int floorNum) {
-        //System.out.println("x");
 
-        Floor f = getFloor(floorNum);
-        if (f == null) {
-            System.out.println("FLOOR " + floorNum);
-        }
-        f.addPerson(p);
+
+    public void addPerson(Person person, int floorNum) {
+        Floor floorToAddPerson = floors.get(floorNum);
+        floorToAddPerson.addPerson(person);
         floors.put(floorNum, getFloor(floorNum));
     }
 
