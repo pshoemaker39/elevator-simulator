@@ -24,6 +24,7 @@ public class Floor {
     }
 
     public void addPerson(Person p) {
+        System.out.println("Floor "+getFloorNum()+" has person added");
 
         //check direction person is waiting for
         if(p.getDesiredFloor()>getFloorNum()) {
@@ -58,7 +59,7 @@ public class Floor {
     public ArrayList<Person> getWaitingPeople(Direction d) {
         //when passed a direction on the floor, filter the waiting people for that direction
 
-
+        System.out.println("Direction: "+d);
 
         if(d == Direction.UP) {
             //return people waiting to go up

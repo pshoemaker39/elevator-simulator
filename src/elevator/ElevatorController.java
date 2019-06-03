@@ -14,6 +14,7 @@ public class ElevatorController {
 
 
 
+
     public static ElevatorController getInstance() {
         if(instance == null) {
             instance = new ElevatorController();
@@ -29,11 +30,18 @@ public class ElevatorController {
         return getElevators().get(elevId);
     }
 
+    public void addRequestFromFloor(int elevId, Request request) {
+
+        getElevator(elevId).addStopToQueue(request);
+    }
+
     public void moveElevators(long time) {
 
         for (int i = 0; i < getElevators().size(); i++) {
             getElevator(i).move(time);
         }
+
+        //getElevator(0).move(time);
     }
 
     public void createElevator(int id) {

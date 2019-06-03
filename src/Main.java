@@ -29,8 +29,10 @@ public class Main {
 
         Request request = new Request(start, direction);
 
+        ElevatorController.getInstance().addRequestFromFloor(elevId, request);
 
-        ElevatorController.getInstance().getElevator(elevId).addFloorRequest(request);
+
+        //ElevatorController.getInstance().getElevator(elevId).addFloorRequest(request);
     }
 
     private static void test1() throws InterruptedException {
@@ -43,6 +45,25 @@ public class Main {
             ElevatorController.getInstance().moveElevators(1000);
             Thread.sleep(1000);
 
+        }
+        System.out.println("Done");
+    }
+
+    private static void test2() throws InterruptedException {
+
+        for (int i = 0; i < 120; i++) {
+
+            switch(i) {
+                case 0:
+                    addPerson(20, 5, 1);
+                    break;
+                case 1:
+                    addPerson(15, 19, 1);
+                    break;
+            }
+
+            ElevatorController.getInstance().moveElevators(1000);
+            Thread.sleep(1000);
         }
     }
 
