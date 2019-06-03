@@ -9,6 +9,7 @@ import gui.ElevatorDisplay;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 
 public class Main {
 
@@ -110,9 +111,19 @@ public class Main {
 
     }
 
-//    private static void finalTest() throws InterruptedException {
-//        for(int i = 0; )
-//    }
+    private static void finalTest() throws InterruptedException {
+        Random rand = new Random();
+        for(int i = 0; i < 100; i++) {
+            if(i%3 == 0) {
+                int end = rand.nextInt(20 - 2 + 1) + 2;
+                int start = rand.nextInt(end - 1 + 1) + 1;
+                int elevId = rand.nextInt(3 - 0 + 1) + 0;
+                addPerson(start, end, elevId);
+            }
+            ElevatorController.getInstance().moveElevators(1000);
+            Thread.sleep(1000);
+        }
+    }
 
     private static String getTimeStamp() {
         long now = System.currentTimeMillis() - INIT_TIME;
@@ -143,7 +154,7 @@ public class Main {
                 ElevatorDisplay.getInstance().addElevator(i, 1);
             }
 
-            test3();
+            finalTest();
 
         } catch (Exception InterruptedException) {
             System.out.println(InterruptedException);
