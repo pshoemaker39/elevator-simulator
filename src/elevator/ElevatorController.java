@@ -30,15 +30,15 @@ public class ElevatorController {
     }
 
     public void addRequestFromFloor(int elevId, Request request) {
+        getElevator(elevId).addStopToQueue(request);
 
         Logger.getInstance().floorRequestReceived(Integer.toString(elevId+1), request.getRequestDirection().toString(), Integer.toString(request.getRequestStart()));
-
-        getElevator(elevId).addStopToQueue(request);
     }
 
     public void moveElevators(long time) {
 
         for (int i = 0; i < getElevators().size(); i++) {
+            //System.out.println("Elevator index: "+i+" Elevator id: "+getElevator(i).getId());
             getElevator(i).move(time);
         }
 

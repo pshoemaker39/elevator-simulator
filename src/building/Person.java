@@ -11,14 +11,15 @@ package building;
 // Each person will need to record their ride-time duration in seconds (enter - exit)
 
 
-import elevator.Direction;
-
 public class Person {
 
     private String id;
     private int desiredFloor;
-    private Direction direction;
+    private int startFloor;
+
     private long waitStart;
+    private long waitEnd;
+    private long rideStart;
     private long rideEnd;
 
 
@@ -31,18 +32,59 @@ public class Person {
         return id;
     }
 
-
+    public void setStartFloor(int floor) {
+        this.startFloor = floor;
+    }
 
     public int getDesiredFloor() {
         return desiredFloor;
     }
 
-
-    public void setRideEnd(long rideEnd) {
-        this.rideEnd = rideEnd;
+    public int getStartFloor() {
+        return this.startFloor;
     }
 
-    public void setWaitStart(long waitStart) {
-        this.waitStart = waitStart;
+    public void setWaitStart() {
+        this.waitStart = System.currentTimeMillis();
     }
+
+    public void setWaitEnd() {
+        this.waitEnd = System.currentTimeMillis();
+    }
+
+    public void setRideStart() {
+        this.rideStart = System.currentTimeMillis();
+    }
+
+    public void setRideEnd() {
+        this.rideEnd = System.currentTimeMillis();
+    }
+
+    private long getWaitStart() {
+        return this.waitStart;
+    }
+
+    private long getWaitEnd() {
+        return this.waitEnd;
+    }
+
+    private long getRideStart() {
+        return this.rideStart;
+    }
+
+    private long getRideEnd() {
+        return this.rideEnd;
+    }
+
+    public long getWaitTime() {
+        return getWaitEnd() - getWaitStart();
+    }
+
+    public long getRideTime() {
+        return getRideEnd() - getRideStart();
+    }
+
+
+
+
 }

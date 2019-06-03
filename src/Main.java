@@ -48,6 +48,7 @@ public class Main {
             }
 
             ElevatorController.getInstance().moveElevators(1000);
+            Logger.getInstance().updateNow(1000);
             Thread.sleep(1000);
 
         }
@@ -138,6 +139,7 @@ public class Main {
     // Generate rider statistics
     // Implement elevator controller algorithm
     // Investigate why directions not updating at end (sim may have just run out of time)
+    // Test 2 has issue where doors open at 14 seconds but no passengers are reported exchanging
 
 
 
@@ -162,7 +164,7 @@ public class Main {
                 ElevatorDisplay.getInstance().addElevator(i, 1);
             }
 
-            test2();
+            test3();
             //finalTest();
 
         } catch (Exception InterruptedException) {
