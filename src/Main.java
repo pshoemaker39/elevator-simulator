@@ -67,6 +67,53 @@ public class Main {
         }
     }
 
+        private static void test3() throws InterruptedException {
+        //error caused by how I am handling shutdown
+        for (int i = 0; i < 45; i++) {
+
+            switch(i) {
+                case 0:
+                    addPerson(1, 10, 2);
+                    break;
+                case 25:
+                    addPerson(10, 1, 2);
+                    break;
+            }
+            ElevatorController.getInstance().moveElevators(1000);
+            Thread.sleep(1000);
+        }
+    }
+
+        private static void test4() throws InterruptedException {
+        //errors caused because return home pushes one onto stack
+
+        for (int i = 0; i < 65; i++) {
+
+            switch(i) {
+                case 0:
+                    addPerson(1, 10, 0);
+                    break;
+                case 5:
+                    addPerson(8, 17, 0);
+                    break;
+                case 6:
+                    addPerson(1, 9, 3);
+                    break;
+                case 32:
+                    addPerson(3, 1, 3);
+                    break;
+            }
+
+            ElevatorController.getInstance().moveElevators(1000);
+            Thread.sleep(1000);
+        }
+
+    }
+
+//    private static void finalTest() throws InterruptedException {
+//        for(int i = 0; )
+//    }
+
     private static String getTimeStamp() {
         long now = System.currentTimeMillis() - INIT_TIME;
         long hours = now/3600000;
@@ -96,7 +143,7 @@ public class Main {
                 ElevatorDisplay.getInstance().addElevator(i, 1);
             }
 
-            test1();
+            test3();
 
         } catch (Exception InterruptedException) {
             System.out.println(InterruptedException);

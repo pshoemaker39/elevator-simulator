@@ -180,8 +180,7 @@ public class Elevator {
 
     private void returnHome() {
         if(getCurrentFloor() != 1) {
-            stops.add(1);
-            setDirection(Direction.DOWN);
+            decrementCurrentFloor();
         }
     }
 
@@ -190,7 +189,7 @@ public class Elevator {
             setIdleTime(0);
         } else {
             if(getIdleTime() == getMaxIdleTime()) {
-                returnHome();
+                //returnHome();
             } else {
                 setIdleTime(getIdleTime() + time);
             }
@@ -476,6 +475,8 @@ public class Elevator {
             System.out.println("Elevator "+getId()+" had a stop added to its queue");
         }
 
+        setIdleTime(0);
+
 
     }
 
@@ -513,11 +514,16 @@ public class Elevator {
         System.out.println("Begin move loop, Elevator "+getId()+" stops "+ Arrays.toString(stops.toArray())+" ");
 
 
-        if((getIdleTime() > MAX_IDLE_TIME) && (getCurrentFloor() == 1)){
-            setDirection(Direction.IDLE);
+        if((getIdleTime() > MAX_IDLE_TIME)) {
+            if((getCurrentFloor() == 1)) {
+                setDirection(Direction.IDLE);
+            } else {
+                decrementCurrentFloor();
+            }
         }
 
-        if(stops.contains(getCurrentFloor())) {
+
+        else if(stops.contains(getCurrentFloor())) {
             if(getIdleTime() > 9000) {
                setDirection(Direction.IDLE);
                 stops.remove(stops.indexOf(getCurrentFloor()));
@@ -536,7 +542,7 @@ public class Elevator {
 
         else if(getStopQueueSize() == 0) {
             //is idle
-            System.out.println("Elevator "+getId()+" is idle");
+            //System.out.println("Elevator "+getId()+" is idle");
             //updateRequestQueue
             idleLogic(time);
         }
