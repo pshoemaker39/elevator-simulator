@@ -231,7 +231,7 @@ public class Elevator {
         riders.forEach((rider)->{
             if(!stops.contains(rider.getDesiredFloor())) {
                 stops.add(rider.getDesiredFloor());
-                System.out.println("Elevator "+getId()+" had a stop added to its queue");
+                //System.out.println("Elevator "+getId()+" had a stop added to its queue");
             }
         });
 
@@ -292,7 +292,7 @@ public class Elevator {
         Floor flr = bld.getFloor(getCurrentFloor());
         int waiting = flr.getWaitingPeople(getDirection()).size();
 
-        System.out.println(waiting+" people on floor "+flr.getFloorNum());
+        //System.out.println(waiting+" people on floor "+flr.getFloorNum());
 
         if(waiting > 0) {
 
@@ -300,7 +300,7 @@ public class Elevator {
                 Person waitingPerson = flr.getWaitingPeople(getDirection()).get(i);
                 riders.add(waitingPerson);
                 flr.removePersonFromFloor(waitingPerson);
-                System.out.println("Rider add to elevator, remove from floor");
+                //System.out.println("Rider add to elevator, remove from floor");
             }
 
             flr.getWaitingPeople(getDirection()).forEach((person) -> {
@@ -321,9 +321,9 @@ public class Elevator {
             }
         });
         Collections.sort(stops);
-        System.out.println("Sorted stops list: ");
+        //System.out.println("Sorted stops list: ");
         stops.forEach((stop)->{
-            System.out.println("Floor: "+stop);
+            //System.out.println("Floor: "+stop);
         });
 
         //TODO remove, testing value here
@@ -346,7 +346,7 @@ public class Elevator {
                 if(rider.getDesiredFloor() == getCurrentFloor()){
                     flr.addArrivedPerson(rider);
                     this.riders.remove(i);
-                    System.out.println("Rider add to floor, remove from elevator");
+                    //System.out.println("Rider add to floor, remove from elevator");
                 }
             }
         }
@@ -428,18 +428,18 @@ public class Elevator {
 
         //should I still be idle
         if(getStopQueueSize() > 0) {
-            System.out.println("Elevator "+getId()+" has a floor request");
+            //System.out.println("Elevator "+getId()+" has a floor request");
             getNextFloorRequest();
         } else if (getRidersSize() > 0) {
-            System.out.println("Elevator "+getId()+" is idle but has riders, something is wrong");
+            //System.out.println("Elevator "+getId()+" is idle but has riders, something is wrong");
         }
 
         //how long have I been idle
         else if(getIdleTime() == 10000) {
-            System.out.println("Elevator "+getId()+" called home");
+            //System.out.println("Elevator "+getId()+" called home");
             returnHome();
         } else {
-            System.out.println("Elevator "+getId()+" idle time "+getIdleTime());
+            //System.out.println("Elevator "+getId()+" idle time "+getIdleTime());
             incrementIdleTimer(time);
         }
     }
@@ -465,14 +465,15 @@ public class Elevator {
     }
 
     public void addStopToQueue(Request request) {
+
         if(getStopQueueSize() == 0) {
-            System.out.println("Direction of elevator "+getId()+" was update to "+request.getRequestDirection()+" by a floor request");
+            //System.out.println("Direction of elevator "+getId()+" was update to "+request.getRequestDirection()+" by a floor request");
             setDirection(request.getRequestDirection());
         }
 
         if(!stops.contains(request.getRequestStart())) {
             stops.add(request.getRequestStart());
-            System.out.println("Elevator "+getId()+" had a stop added to its queue");
+            //System.out.println("Elevator "+getId()+" had a stop added to its queue");
         }
 
         setIdleTime(0);
@@ -511,7 +512,7 @@ public class Elevator {
 
         ElevatorDisplay.getInstance().updateElevator(getId(), getCurrentFloor(), getRidersSize(), matchDirection(getDirection()));
 
-        System.out.println("Begin move loop, Elevator "+getId()+" stops "+ Arrays.toString(stops.toArray())+" ");
+        //System.out.println("Begin move loop, Elevator "+getId()+" stops "+ Arrays.toString(stops.toArray())+" ");
 
 
         if((getIdleTime() > MAX_IDLE_TIME)) {
@@ -528,28 +529,28 @@ public class Elevator {
                setDirection(Direction.IDLE);
                 stops.remove(stops.indexOf(getCurrentFloor()));
             } else {
-                System.out.println("Exchange required on this floor");
+                //System.out.println("Exchange required on this floor");
                 beginPassengerExchange();
             }
         }
 
         else if(isExchangingPassengers) {
             //is exchanging
-            System.out.println("Elevator "+getId()+" is exchanging passengers");
+            //System.out.println("Elevator "+getId()+" is exchanging passengers");
             exchangeLogic(time);
         }
 
 
         else if(getStopQueueSize() == 0) {
             //is idle
-            //System.out.println("Elevator "+getId()+" is idle");
+            ////System.out.println("Elevator "+getId()+" is idle");
             //updateRequestQueue
             idleLogic(time);
         }
 
         else if (getStopQueueSize() > 0){
-            //System.out.println("Elevator "+ getId()+" is not idle");
-            System.out.println("Elevator "+getId()+" target floors: "+ Arrays.toString(stops.toArray())+" direction: "+getDirection());
+            ////System.out.println("Elevator "+ getId()+" is not idle");
+            //System.out.println("Elevator "+getId()+" target floors: "+ Arrays.toString(stops.toArray())+" direction: "+getDirection());
 
             //updateRequestQueue
             //eval rider requests
@@ -559,10 +560,10 @@ public class Elevator {
 //            Floor flr = bld.getFloor(getCurrentFloor());
 //
 //            if(flr.getWaitingPeople(getDirection()).size() > 0) {
-//                System.out.println("This floor ("+getCurrentFloor()+") has people waiting in my direction");
+//                //System.out.println("This floor ("+getCurrentFloor()+") has people waiting in my direction");
 //                beginPassengerExchange();
 //            } else {
-//                System.out.println("This floor ("+getCurrentFloor()+") does not have people waiting in my direction");
+//                //System.out.println("This floor ("+getCurrentFloor()+") does not have people waiting in my direction");
 //            }
 
             if(getRidersSize() == 0) {

@@ -1,4 +1,5 @@
 import building.Building;
+import building.Logger;
 import building.Person;
 import config.Config;
 import elevator.Direction;
@@ -23,14 +24,17 @@ public class Main {
         Direction direction = Direction.determineDirection(start, end);
 
         //create person
-        Person person = new Person("P "+personCounter++, end);
+        Person person = new Person("P"+personCounter++, end);
         people.add(person);
         Building.getInstance().addPerson(person, start);
         person.setWaitStart(System.currentTimeMillis());
 
         Request request = new Request(start, direction);
+        Logger.getInstance().personCreated(person.getId(), Integer.toString(start), direction.toString(), Integer.toString(end));
 
+        Logger.getInstance().floorRequest(person.getId(), direction.toString(), Integer.toString(start));
         ElevatorController.getInstance().addRequestFromFloor(elevId, request);
+
 
 
         //ElevatorController.getInstance().getElevator(elevId).addFloorRequest(request);
@@ -52,8 +56,10 @@ public class Main {
 
     private static void test2() throws InterruptedException {
 
-        for (int i = 0; i < 120; i++) {
 
+
+        for (int i = 0; i < 120; i++) {
+            //System.out.println("Now:" +Logger.getInstance().getNow());
             switch(i) {
                 case 0:
                     addPerson(20, 5, 1);
@@ -65,6 +71,7 @@ public class Main {
 
             ElevatorController.getInstance().moveElevators(1000);
             Thread.sleep(1000);
+            Logger.getInstance().updateNow(1000);
         }
     }
 
@@ -125,20 +132,21 @@ public class Main {
         }
     }
 
-    private static String getTimeStamp() {
-        long now = System.currentTimeMillis() - INIT_TIME;
-        long hours = now/3600000;
-        long minutes = hours/60;
-        long seconds = minutes/60;
-        double millis = Math.floor(seconds/1000)/1000;
-        return hours+":"+minutes+":"+seconds+"."+millis;
-    }
+    //TODO pull simulation inputs from file
+    // Expand final test to include shutdown
+    // Normalize output
+    // Generate rider statistics
+    // Implement elevator controller algorithm
+    // Investigate why directions not updating at end (sim may have just run out of time)
+
+
 
     public static void main(String[] args) {
 
+        Logger.getInstance().startupTime();
+
         try {
             HashMap<String, String> cfg = Config.getValues();
-            System.out.println("Startup: " + getTimeStamp());
 
             Building.NUM_FLOORS = Integer.parseInt(cfg.get("NUM_FLOORS"));
             ElevatorDisplay.getInstance().initialize(Integer.parseInt(cfg.get("NUM_FLOORS")));
@@ -154,7 +162,8 @@ public class Main {
                 ElevatorDisplay.getInstance().addElevator(i, 1);
             }
 
-            finalTest();
+            test2();
+            //finalTest();
 
         } catch (Exception InterruptedException) {
             System.out.println(InterruptedException);

@@ -1,0 +1,40 @@
+/*TODO
+
+-- All events must be timestamped in relative time
+
+
+--- Person created from main:
+-- Person creation | Person XXX created on Floor XX, wants to go DXXX to Floor XX
+
+--- Request from floor:
+-- Floor Up/DOWN Request | Person XXX presses DXXX button on Floor XX
+
+--- Request received by controller:
+-- Request Received | Elevator XX new floor request to go to Floor XX - DXXX [Floor Request: X][Rider Requests: X]
+
+--- Request entered at elevator:
+-- Elevator XX Rider Request made for Floor XX [Floor Request: X][Rider Requests: X]
+
+--- Elevator moves from one floor to another
+-- Elevator XX moving from Floor XX to Floor XX [Floor Request: X][Rider Requests: X]
+
+--- Elevator arrives or stops at floor
+-- Elevator XX has stoppped / arrived at Floor XX [Floor Request: X][Rider Requests: X]
+
+--- Elevator Door Open / Close
+-- Elevator XX Doors STSXXX
+
+--- Person enters an elevator
+-- Person XXX entered Elevator XX [Riders: X,X]
+
+--- Person leaves an elevator
+-- Person XXX has left Elevator XX [Riders: X,X]
+
+--- Person enters a floor
+-- Person XXX entered Floor XX
+
+--- Person leaves a floor
+-- Person XXX has left Floor XX
+
+
+*/

@@ -5,15 +5,14 @@ package elevator;
 // The ec will instruct individual elevators to go to certain floors and respond to requests (not in scope for phase I?)
 
 
+import building.Logger;
+
 import java.util.ArrayList;
 
 public class ElevatorController {
 
     private ArrayList<Elevator> elevators = new ArrayList<>();
     private static ElevatorController instance;
-
-
-
 
     public static ElevatorController getInstance() {
         if(instance == null) {
@@ -32,6 +31,8 @@ public class ElevatorController {
 
     public void addRequestFromFloor(int elevId, Request request) {
 
+        Logger.getInstance().floorRequestReceived(Integer.toString(elevId+1), request.getRequestDirection().toString(), Integer.toString(request.getRequestStart()));
+
         getElevator(elevId).addStopToQueue(request);
     }
 
@@ -41,6 +42,7 @@ public class ElevatorController {
             getElevator(i).move(time);
         }
 
+        System.out.println(" ");
         //getElevator(0).move(time);
     }
 
