@@ -273,7 +273,7 @@ public class Elevator {
         Building bld = Building.getInstance();
         Floor flr = bld.getFloor(getCurrentFloor());
         int waiting = flr.getWaitingPeople(getDirection()).size();
-        
+
         if(waiting > 0) {
 
 
@@ -459,8 +459,10 @@ public class Elevator {
 
             if(getRidersSize() == 0) {
                 if(stops.get(0)>getCurrentFloor()){
+                    setDirection(Direction.UP);
                     incrementCurrentFloor();
                 } else {
+                    setDirection(Direction.DOWN);
                     decrementCurrentFloor();
                 }
             }
