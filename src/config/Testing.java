@@ -114,15 +114,26 @@ public class Testing {
 
     public static void finalTest() throws InterruptedException {
         Random rand = new Random();
-        for(int i = 0; i < 100; i++) {
-            if(i%3 == 0) {
-                int end = rand.nextInt(20 - 2 + 1) + 2;
-                int start = rand.nextInt(end - 1 + 1) + 1;
-                int elevId = rand.nextInt(3 - 0 + 1) + 0;
-                addPerson(start, end, elevId);
+        int floorMin = 1;
+        int floorMax = 20;
+        int elMin = 0;
+        int elMax = 3;
+        for(int i = 0; i < 120; i++) {
+            if((i%5 == 0) && (i < 21)) {
+
+
+                int a = rand.nextInt(floorMax - floorMin + 1) + floorMin;
+                int b = rand.nextInt(floorMax - floorMin + 1) + floorMin;
+                while(a==b){
+                    b = rand.nextInt(floorMax - floorMin + 1) + floorMin;
+                }
+                int elevId = rand.nextInt(elMax - elMin + 1) + elMin;
+                //System.out.println("Start: "+a+" End: "+b+" Elevator: "+elevId);
+                addPerson(a, b, elevId);
             }
             ElevatorController.getInstance().moveElevators(1000);
             Thread.sleep(1000);
+            Logger.getInstance().updateNow(1000);
         }
     }
 }

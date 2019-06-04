@@ -1,6 +1,5 @@
 package elevator;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 interface PathAlgorithm {
@@ -12,7 +11,7 @@ interface PathAlgorithm {
 
     Elevator getMostEfficientElevator();
 
-    ArrayList<Request> getPendingRequests();
+    HashMap<Request, Integer> getPendingRequests();
 
     void removeRequest(Request request);
 

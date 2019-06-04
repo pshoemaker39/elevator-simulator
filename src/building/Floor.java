@@ -49,17 +49,17 @@ public class Floor {
 
     public void removePersonFromFloor(Person removePerson) {
 
-        for(int i = 0; i < this.waitingForDescendingElevator.size(); i++) {
-            if(this.waitingForDescendingElevator.get(i).equals(removePerson)) {
-                this.waitingForDescendingElevator.remove(i);
+            for (int i = 0; i < this.waitingForDescendingElevator.size(); i++) {
+                if (this.waitingForDescendingElevator.get(i).equals(removePerson)) {
+                    this.waitingForDescendingElevator.remove(i);
+                }
             }
-        }
 
-        for(int i = 0; i < this.waitingForAscendingElevator.size(); i++) {
-            if(this.waitingForAscendingElevator.get(i).equals(removePerson)) {
-                this.waitingForAscendingElevator.remove(i);
+            for (int i = 0; i < this.waitingForAscendingElevator.size(); i++) {
+                if (this.waitingForAscendingElevator.get(i).equals(removePerson)) {
+                    this.waitingForAscendingElevator.remove(i);
+                }
             }
-        }
     }
 
     public ArrayList<Person> getWaitingPeople(Direction d) {

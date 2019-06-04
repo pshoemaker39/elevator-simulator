@@ -1,23 +1,29 @@
 package elevator;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 
 public class RequestOptimizer implements PathAlgorithm {
 
     private Elevator mostEfficientElevator;
 
-    private ArrayList<Request> pendingRequests = new ArrayList<>();
+    private HashMap<Request, Integer> pendingRequests = new HashMap<>();
+
+    //testing purposes - remove
+    public void setTargetElevator(Elevator elevator) {
+        this.mostEfficientElevator = elevator;
+    }
 
     public Elevator getMostEfficientElevator() {
         return this.mostEfficientElevator;
     }
 
-    public ArrayList<Request> getPendingRequests() {
+    public HashMap<Request, Integer> getPendingRequests() {
         return this.pendingRequests;
     }
 
     public void removeRequest(Request request) {
 
+        System.out.println("!!!!! remove request -- must be developed");
 
     }
 
@@ -34,15 +40,8 @@ public class RequestOptimizer implements PathAlgorithm {
         return true;
     }
 
-    //testing purposes
-    public void setTargetElevator(Elevator elevator) {
-        this.mostEfficientElevator = elevator;
-    }
 
-    public Elevator determingMostEfficientElevator(Request request) {
 
-        return getMostEfficientElevator();
-    }
 
 
 
