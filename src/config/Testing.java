@@ -50,7 +50,7 @@ public class Testing {
         }
     }
 
-    private static void test2() throws InterruptedException {
+    public static void test2() throws InterruptedException {
         for (int i = 0; i < 120; i++) {
             //System.out.println("Now:" +Logger.getInstance().getNow());
             switch(i) {
@@ -67,7 +67,7 @@ public class Testing {
         }
     }
 
-    private static void test3() throws InterruptedException {
+    public static void test3() throws InterruptedException {
         //error caused by how I am handling shutdown
         for (int i = 0; i < 45; i++) {
 
@@ -85,7 +85,7 @@ public class Testing {
         }
     }
 
-    private static void test4() throws InterruptedException {
+    public static void test4() throws InterruptedException {
         //errors caused because return home pushes one onto stack
 
         for (int i = 0; i < 65; i++) {
@@ -112,7 +112,7 @@ public class Testing {
 
     }
 
-    private static void finalTest() throws InterruptedException {
+    public static void finalTest() throws InterruptedException {
         Random rand = new Random();
         for(int i = 0; i < 100; i++) {
             if(i%3 == 0) {

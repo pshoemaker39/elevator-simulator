@@ -273,9 +273,7 @@ public class Elevator {
         Building bld = Building.getInstance();
         Floor flr = bld.getFloor(getCurrentFloor());
         int waiting = flr.getWaitingPeople(getDirection()).size();
-
-        //System.out.println(waiting+" people on floor "+flr.getFloorNum());
-
+        
         if(waiting > 0) {
 
 

@@ -14,6 +14,7 @@ package building;
 import elevator.Direction;
 
 //TODO increase precision to a single decimal point
+// issue with test2 results
 
 public class Person {
 
@@ -49,11 +50,15 @@ public class Person {
     }
 
     public void setWaitStart() {
+
         this.waitStart = System.currentTimeMillis();
+        System.out.println(String.format("Wait time start set for %s at %s",getId(), waitStart));
     }
 
     public void setWaitEnd() {
+
         this.waitEnd = System.currentTimeMillis();
+        System.out.println(String.format("Wait time end set for %s at %s",getId(), waitEnd));
     }
 
     public void setRideStart() {
