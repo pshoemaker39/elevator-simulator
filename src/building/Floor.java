@@ -23,6 +23,12 @@ public class Floor {
         arrivedPerson.add(p);
     }
 
+    public void removeFromFloor(Person p) {
+
+    }
+
+
+
     public void addPerson(Person p) {
         //System.out.println("Floor "+getFloorNum()+" has person added");
 
