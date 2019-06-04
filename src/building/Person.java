@@ -52,13 +52,13 @@ public class Person {
     public void setWaitStart() {
 
         this.waitStart = System.currentTimeMillis();
-        System.out.println(String.format("Wait time start set for %s at %s",getId(), waitStart));
+//        System.out.println(String.format("Wait time start set for %s at %s",getId(), waitStart));
     }
 
     public void setWaitEnd() {
 
         this.waitEnd = System.currentTimeMillis();
-        System.out.println(String.format("Wait time end set for %s at %s",getId(), waitEnd));
+//        System.out.println(String.format("Wait time end set for %s at %s",getId(), waitEnd));
     }
 
     public void setRideStart() {
@@ -94,7 +94,7 @@ public class Person {
     }
 
     public Direction getDirection() {
-        if(getRideStart()>getRideEnd()) {
+        if(getStartFloor()>getDesiredFloor()) {
             return Direction.DOWN;
         } else {
             return Direction.UP;

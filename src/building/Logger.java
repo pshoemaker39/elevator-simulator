@@ -135,4 +135,6 @@ public class Logger {
     }
 
 
+    //TODO correct min logic, set direction correctly
+
 }

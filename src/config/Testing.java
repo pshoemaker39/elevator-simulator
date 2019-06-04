@@ -51,7 +51,7 @@ public class Testing {
     }
 
     public static void test2() throws InterruptedException {
-        for (int i = 0; i < 120; i++) {
+        for (int i = 0; i < 70; i++) {
             //System.out.println("Now:" +Logger.getInstance().getNow());
             switch(i) {
                 case 0:

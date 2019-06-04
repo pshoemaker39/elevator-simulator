@@ -13,11 +13,10 @@ public class Main {
 
     //TODO pull simulation inputs from file
     // Expand final test to include shutdown
-    // Normalize output
-    // Generate rider statistics
     // Implement elevator controller algorithm
-    // Investigate why directions not updating at end (sim may have just run out of time)
-    // Test 2 has issue where doors open at 14 seconds but no passengers are reported exchanging
+    // Investigate why directions not updating at end (sim may have just run out of time)\
+    // throw exceptions
+    // add rider call out to min and max
 
     private static void displayAggregateRiderStats() {
         int totalRiders = Testing.getPeople().size();
@@ -35,21 +34,26 @@ public class Main {
             waitSum = waitSum+p.getWaitTime();
             rideSum = rideSum+p.getRideTime();
 
-            if(p.getWaitTime()>waitMax) {
-                waitMax = p.getWaitTime();
+            if(i == 0) {
+                rideMin = p.getRideTime();
+                waitMin = p.getWaitTime();
+            } else {
+                if(p.getWaitTime()<waitMin) {
+                    waitMin = p.getWaitTime();
+                }
+                if(p.getRideTime()<rideMin) {
+                    rideMin = p.getRideTime();
+                }
             }
 
-            if(p.getWaitTime()<waitMin) {
-                waitMin = p.getWaitTime();
+            if(p.getWaitTime()>waitMax) {
+                waitMax = p.getWaitTime();
             }
 
             if(p.getRideTime()>rideMax) {
                 rideMax = p.getRideTime();
             }
 
-            if(p.getRideTime()<rideMin) {
-                rideMin = p.getRideTime();
-            }
         }
 
         System.out.println(" ");
@@ -96,7 +100,7 @@ public class Main {
                 ElevatorDisplay.getInstance().addElevator(i, 1);
             }
 
-            Testing.test2();
+            Testing.test4();
             displayAggregateRiderStats();
             displayDetailRiderStats();
 

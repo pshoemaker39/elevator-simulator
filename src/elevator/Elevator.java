@@ -30,7 +30,7 @@ public class Elevator {
     private final ArrayList<Request> floorRequests = new ArrayList<>();
     private final ArrayList<Person> riders = new ArrayList<>();
     private final ArrayList<Integer> stops = new ArrayList<>();
-    private final Set<Integer> stopQueue = new HashSet<>();
+    private Request requestFromIdle;
     private long idleTime;
     private boolean isExchangingPassengers;
     private long remainingDoorTime;
@@ -378,7 +378,13 @@ public class Elevator {
 
 
     public void addStopToQueue(Request request) {
-        floorRequests.add(request);
+        if(floorRequests.size() == 0) {
+            requestFromIdle = request;
+            floorRequests.add(request);
+        } else {
+            floorRequests.add(request);
+        }
+
 
         if(getStopQueueSize() == 0) {
             setDirection(request.getRequestDirection());
@@ -419,12 +425,14 @@ public class Elevator {
             }
         }
 
-
         else if(stops.contains(getCurrentFloor())) {
             if(getIdleTime() > 9000) {
                setDirection(Direction.IDLE);
                 stops.remove(stops.indexOf(getCurrentFloor()));
             } else {
+                if(getCurrentFloor() == requestFromIdle.getRequestStart()) {
+                    setDirection(requestFromIdle.getRequestDirection());
+                }
                 beginPassengerExchange();
             }
         }
@@ -445,6 +453,7 @@ public class Elevator {
 
             if(getRidersSize() == 0) {
                 //System.out.println("Has queue, no but riders");
+
                 if(stops.get(0) == getCurrentFloor()) {
                     System.out.println("At current floor, begin exchange");
                     beginPassengerExchange();
