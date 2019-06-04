@@ -14,7 +14,6 @@ public class Main {
     //TODO pull simulation inputs from file
     // Expand final test to include shutdown
     // Implement elevator controller algorithm
-    // Investigate why directions not updating at end (sim may have just run out of time)\
     // throw exceptions
     // add rider call out to min and max
 
@@ -100,7 +99,7 @@ public class Main {
                 ElevatorDisplay.getInstance().addElevator(i, 1);
             }
 
-            Testing.test4();
+            Testing.test1();
             displayAggregateRiderStats();
             displayDetailRiderStats();
 

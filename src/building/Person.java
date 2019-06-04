@@ -14,7 +14,6 @@ package building;
 import elevator.Direction;
 
 //TODO increase precision to a single decimal point
-// issue with test2 results
 
 public class Person {
 

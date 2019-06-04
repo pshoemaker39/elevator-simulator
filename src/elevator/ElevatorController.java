@@ -30,7 +30,38 @@ public class ElevatorController {
     }
 
     public void addRequestFromFloor(int elevId, Request request) {
-        getElevator(elevId).addStopToQueue(request);
+
+        RequestOptimizer ro = new RequestOptimizer();
+
+        ro.evaluateRequest(request);
+
+        if(ro.hasIdentifiedElevator()) {
+            //if you can identify an elevator, add the request
+            Elevator elevator = ro.getMostEfficientElevator();
+            elevator.addStopToQueue(request);
+            ro.removeRequest(request);
+        }
+
+        //if there are requests which have not been served, revisit them
+        if(ro.getPendingRequests().size()>0) {
+            for(int i = 0; i <ro.getPendingRequests().size(); i++) {
+                Request revisitedRequest = ro.getPendingRequests().get(i);
+
+                ro.evaluateRequest(revisitedRequest);
+
+                if(ro.hasIdentifiedElevator()) {
+                    //if you can identify an elevator, add the request
+                    Elevator elevator = ro.getMostEfficientElevator();
+                    elevator.addStopToQueue(revisitedRequest);
+                    ro.removeRequest(request);
+                }
+            }
+        }
+
+        if(!ro.hasIdentifiedElevator()){
+            //if the most recent request was not served, add it to the queue
+            ro.addRequestToQueue(request);
+        }
 
         Logger.getInstance().floorRequestReceived(Integer.toString(elevId+1), request.getRequestDirection().toString(), Integer.toString(request.getRequestStart()));
     }
@@ -38,10 +69,8 @@ public class ElevatorController {
     public void moveElevators(long time) {
 
         for (int i = 0; i < getElevators().size(); i++) {
-            //System.out.println("Elevator index: "+i+" Elevator id: "+getElevator(i).getId());
             getElevator(i).move(time);
         }
-        //getElevator(0).move(time);
     }
 
     public void createElevator(int id) {
