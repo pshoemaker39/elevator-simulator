@@ -19,7 +19,7 @@ public class Floor {
     }
 
     public void addArrivedPerson(Person p) {
-        p.setRideEnd(System.currentTimeMillis());
+        //p.setRideEnd();
         arrivedPerson.add(p);
     }
 

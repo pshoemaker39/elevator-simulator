@@ -281,6 +281,10 @@ public class Elevator {
 
             for(int i = 0; i < waiting; i++) {
                 Person waitingPerson = flr.getWaitingPeople(getDirection()).get(i);
+
+                waitingPerson.setWaitEnd();
+                waitingPerson.setRideStart();
+
                 riders.add(waitingPerson);
                 flr.removePersonFromFloor(waitingPerson);
                 Logger.getInstance().personLeavingFloor(waitingPerson.getId(), Integer.toString(getCurrentFloor()));
@@ -321,6 +325,7 @@ public class Elevator {
                 Person rider = this.riders.get(i);
                 if(rider.getDesiredFloor() == getCurrentFloor()){
 
+                    rider.setRideEnd();
 
                     Logger.getInstance().personLeavingElevator(rider.getId(), Integer.toString(getId()));
                     Logger.getInstance().personEnteringFloor(rider.getId(), Integer.toString(getCurrentFloor()));

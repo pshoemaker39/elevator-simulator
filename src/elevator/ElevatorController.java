@@ -41,8 +41,6 @@ public class ElevatorController {
             //System.out.println("Elevator index: "+i+" Elevator id: "+getElevator(i).getId());
             getElevator(i).move(time);
         }
-
-        System.out.println(" ");
         //getElevator(0).move(time);
     }
 

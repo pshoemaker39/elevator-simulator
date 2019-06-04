@@ -11,6 +11,10 @@ package building;
 // Each person will need to record their ride-time duration in seconds (enter - exit)
 
 
+import elevator.Direction;
+
+//TODO increase precision to a single decimal point
+
 public class Person {
 
     private String id;
@@ -77,14 +81,22 @@ public class Person {
     }
 
     public long getWaitTime() {
-        return getWaitEnd() - getWaitStart();
+        return (getWaitEnd() - getWaitStart())/1000;
     }
 
     public long getRideTime() {
-        return getRideEnd() - getRideStart();
+        return (getRideEnd() - getRideStart())/1000;
     }
 
+    public Direction getDirection() {
+        if(getRideStart()>getRideEnd()) {
+            return Direction.DOWN;
+        } else {
+            return Direction.UP;
+        }
+    }
 
-
-
+    public long getTotalTime() {
+        return getWaitTime()+getRideTime();
+    }
 }
