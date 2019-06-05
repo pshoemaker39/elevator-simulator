@@ -4,6 +4,7 @@ import building.Person;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 
 public class RequestOptimizer implements PathAlgorithm {
 
@@ -65,23 +66,34 @@ public class RequestOptimizer implements PathAlgorithm {
         Integer minReqs = null;
         Elevator targetElevator = null;
 
-        if(!getHasIdentifiedElevator()) {
-            for (Elevator elevator : potentialElevators) {
-                Integer reqSum;
-                reqSum = elevator.floorRequests.size();
-                reqSum = reqSum + elevator.riders.size();
+//        if(!getHasIdentifiedElevator()) {
+//            for (Elevator elevator : potentialElevators) {
+//                Integer reqSum;
+//                reqSum = elevator.floorRequests.size();
+//                reqSum = reqSum + elevator.riders.size();
+//
+//                if(minReqs == null) {
+//                    targetElevator = elevator;
+//                   //System.out.println("El: "+elevator.getId()+" R: "+reqSum);
+//                } else {
+//                    if(reqSum <= minReqs) {
+//                        //System.out.println("El: "+elevator.getId()+" R: "+reqSum);
+//                        targetElevator = elevator;
+//                    }
+//                }
+//            }
+//            setMostEfficientElevator(targetElevator, "Select Least Busy");
+//        }
 
-                if(minReqs == null) {
-                    targetElevator = elevator;
-                   //System.out.println("El: "+elevator.getId()+" R: "+reqSum);
-                } else {
-                    if(reqSum <= minReqs) {
-                        //System.out.println("El: "+elevator.getId()+" R: "+reqSum);
-                        targetElevator = elevator;
-                    }
-                }
+        Random rand = new Random();
+        int elMin = 0;
+        int elMax = ElevatorController.NUM_ELEVATORS;
+        int elevId = rand.nextInt(elMax - elMin + 1) + elMin;
+        for (Elevator elevator : potentialElevators) {
+            if(elevator.getId() == elevId) {
+                System.out.println("Elevator chosen: "+elevId);
+                setMostEfficientElevator(elevator, "Select Least Busy");
             }
-            setMostEfficientElevator(targetElevator, "Select Least Busy");
         }
 
     }

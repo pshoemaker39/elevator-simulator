@@ -13,7 +13,8 @@ import java.util.HashMap;
 public class Main {
 
     private static void displayAggregateRiderStats() {
-        int totalRiders = Testing.getPeople().size();
+        int totalRiders = 0;
+        int totalWaiters = 0;
         long waitSum = 0;
         long rideSum = 0;
         long waitMax = 0;
@@ -21,12 +22,21 @@ public class Main {
         long rideMax = 0;
         long rideMin = 0;
 
-        for(int i = 0; i < totalRiders; i++) {
+        for(int i = 0; i < Testing.getPeople().size(); i++) {
 
             Person p = Testing.getPeople().get(i);
 
-            waitSum = waitSum+p.getWaitTime();
-            rideSum = rideSum+p.getRideTime();
+            if(p.getWaitTime()>-1) {
+                waitSum = waitSum+p.getWaitTime();
+                totalWaiters++;
+            }
+
+            if(p.getRideTime()>-1) {
+                rideSum = rideSum+p.getRideTime();
+                totalRiders++;
+            }
+
+
 
             if(i == 0) {
                 rideMin = p.getRideTime();
@@ -51,7 +61,7 @@ public class Main {
         }
 
         System.out.println(" ");
-        System.out.println("Avg Wait Time: "+(waitSum/totalRiders)+" sec");
+        System.out.println("Avg Wait Time: "+(waitSum/totalWaiters)+" sec");
         System.out.println("Avg Ride Time: "+(rideSum/totalRiders)+" sec");
         System.out.println(" ");
         System.out.println("Min Wait Time: "+(waitMin)+" sec");
@@ -133,7 +143,14 @@ public class Main {
                 ElevatorDisplay.getInstance().addElevator(i, 1);
             }
 
-            Testing.test4();
+//            Testing.test1();
+            Testing.test2();
+//            Testing.test3();
+//            Testing.test4();
+
+
+//            Testing.finalTest();
+
             displayAggregateRiderStats();
             displayDetailRiderStats();
             ElevatorDisplay.getInstance().shutdown();
