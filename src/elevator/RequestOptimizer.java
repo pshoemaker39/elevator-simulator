@@ -8,14 +8,12 @@ public class RequestOptimizer implements PathAlgorithm {
 
     private HashMap<Request, Integer> pendingRequests = new HashMap<>();
 
-    //testing purposes - remove
-    public void setTargetElevator(Elevator elevator) {
-        this.mostEfficientElevator = elevator;
-    }
+    boolean hasIdentifiedElevator = false;
 
-    public Elevator getMostEfficientElevator() {
-        return this.mostEfficientElevator;
-    }
+    //testing purposes - remove
+//    public void setTargetElevator(Elevator elevator) {
+//        this.mostEfficientElevator = elevator;
+//    }
 
     public HashMap<Request, Integer> getPendingRequests() {
         return this.pendingRequests;
@@ -28,21 +26,30 @@ public class RequestOptimizer implements PathAlgorithm {
     }
 
     public void addRequestToQueue(Request request) {
-
+        this.pendingRequests.put(request, 0);
     }
+
+    private void setHasIdentifiedElevator(boolean state) {
+        this.hasIdentifiedElevator = state;
+    }
+
+    public Elevator getMostEfficientElevator() {
+
+        return this.mostEfficientElevator;
+    }
+
+    private boolean getHasIdentifiedElevator() {
+        return this.hasIdentifiedElevator;
+    }
+
+    private void setMostEfficientElevator(Elevator elevator) {
+        this.mostEfficientElevator = elevator;
+    }
+
+////// end interface methods ///////
 
     public void evaluateRequest(Request request) {
 
     }
-
-    public boolean hasIdentifiedElevator() {
-
-        return true;
-    }
-
-
-
-
-
 
 }

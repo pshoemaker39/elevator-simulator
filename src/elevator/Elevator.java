@@ -200,11 +200,8 @@ public class Elevator {
         setPassengerExchangeStatus(true);
         setRemainingDoorTime(getDoorTime());
         floorToElevator();
-
         elevatorToFloor();
-
         stops.remove(stops.indexOf(getCurrentFloor()));
-
 
         riders.forEach((rider)->{
             Logger.getInstance().riderEnteredRequest(Integer.toString(getId()),Integer.toString(rider.getDesiredFloor()));
@@ -264,10 +261,6 @@ public class Elevator {
 
 
             for(int i = 0; i < waiting; i++) {
-
-                System.out.println("Floor ppl size: "+flr.getWaitingPeople(getDirection()).size());
-                System.out.println("Index: "+i);
-
                 Person waitingPerson = flr.getWaitingPeople(getDirection()).get(i);
 
                 waitingPerson.setWaitEnd();
@@ -434,8 +427,8 @@ public class Elevator {
 
         else if(stops.contains(getCurrentFloor())) {
             if(getIdleTime() > 9000) {
-               setDirection(Direction.IDLE);
-               stops.remove(stops.indexOf(getCurrentFloor()));
+                setDirection(Direction.IDLE);
+                stops.remove(stops.indexOf(getCurrentFloor()));
             } else {
                 if(getCurrentFloor() == requestFromIdle.getRequestStart()) {
                     setDirection(requestFromIdle.getRequestDirection());
@@ -462,6 +455,7 @@ public class Elevator {
                 //System.out.println("Has queue, no but riders");
 
                 if(stops.get(0) == getCurrentFloor()) {
+                    System.out.println("At current floor, begin exchange");
                     beginPassengerExchange();
                 }
                 if(stops.get(0)>getCurrentFloor()){

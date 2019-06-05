@@ -106,7 +106,7 @@ public class Testing {
             }
 
             ElevatorController.getInstance().moveElevators(1000);
-            Thread.sleep(1000);
+            Thread.sleep(300);
             Logger.getInstance().updateNow(1000);
         }
 

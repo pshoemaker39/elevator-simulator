@@ -99,7 +99,7 @@ public class Main {
                 ElevatorDisplay.getInstance().addElevator(i, 1);
             }
 
-            Testing.finalTest();
+            Testing.test1();
             displayAggregateRiderStats();
             displayDetailRiderStats();
 

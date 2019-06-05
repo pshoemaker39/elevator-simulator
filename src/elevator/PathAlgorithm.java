@@ -13,11 +13,13 @@ interface PathAlgorithm {
 
     HashMap<Request, Integer> getPendingRequests();
 
+    boolean hasIdentifiedElevator = false;
+
     void removeRequest(Request request);
 
     void evaluateRequest(Request request);
 
-    boolean hasIdentifiedElevator();
+
 
 
 }
