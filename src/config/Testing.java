@@ -14,6 +14,8 @@ public class Testing {
 
     private static ArrayList<Person> people = new ArrayList<>();
     private static int personCounter = 1;
+    public static int SIM_TIME;
+    public static int INTERVAL;
 
     public static ArrayList<Person> getPeople() {
         return people;
@@ -106,7 +108,7 @@ public class Testing {
             }
 
             ElevatorController.getInstance().moveElevators(1000);
-            Thread.sleep(300);
+            Thread.sleep(1000);
             Logger.getInstance().updateNow(1000);
         }
 
@@ -115,11 +117,12 @@ public class Testing {
     public static void finalTest() throws InterruptedException {
         Random rand = new Random();
         int floorMin = 1;
-        int floorMax = 20;
+        int floorMax = Building.NUM_FLOORS;
         int elMin = 0;
-        int elMax = 3;
-        for(int i = 0; i < 120; i++) {
-            if((i%5 == 0) && (i < 21)) {
+        int elMax = ElevatorController.NUM_ELEVATORS;
+
+        for(int i = 0; i < SIM_TIME; i++) {
+            if((i%INTERVAL == 0)) {
 
 
                 int a = rand.nextInt(floorMax - floorMin + 1) + floorMin;

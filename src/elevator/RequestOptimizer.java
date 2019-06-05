@@ -26,9 +26,6 @@ public class RequestOptimizer implements PathAlgorithm {
     }
 
     public void removeRequest(Request request) {
-
-        System.out.println("!!!!! remove request -- must be developed");
-
     }
 
     public void addRequestToQueue(Request request) {
@@ -49,7 +46,7 @@ public class RequestOptimizer implements PathAlgorithm {
     }
 
     private void setMostEfficientElevator(Elevator elevator, String phase) {
-        System.out.println("MEE: "+elevator.getId()+ " Phase: "+phase);
+       // System.out.println("MEE: "+elevator.getId()+ " Phase: "+phase);
         setHasIdentifiedElevator(true);
         this.mostEfficientElevator = elevator;
     }
@@ -76,10 +73,10 @@ public class RequestOptimizer implements PathAlgorithm {
 
                 if(minReqs == null) {
                     targetElevator = elevator;
-                    System.out.println("El: "+elevator.getId()+" R: "+reqSum);
+                   //System.out.println("El: "+elevator.getId()+" R: "+reqSum);
                 } else {
                     if(reqSum <= minReqs) {
-                        System.out.println("El: "+elevator.getId()+" R: "+reqSum);
+                        //System.out.println("El: "+elevator.getId()+" R: "+reqSum);
                         targetElevator = elevator;
                     }
                 }

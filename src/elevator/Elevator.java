@@ -39,6 +39,7 @@ public class Elevator {
     public static Integer DOOR_TIME;
     public static Integer MAX_IDLE_TIME;
     public static Integer MAX_PERSONS_PER_ELEVATOR;
+    public static Integer ELEVATOR_SPEED;
 
 
     public Elevator(int idIn) {
@@ -50,18 +51,8 @@ public class Elevator {
         this.isExchangingPassengers = false;
     }
 
-    public void addFloorRequest(Request r) {
-
-        this.floorRequests.add(r);
-    }
-
     private int getDoorTime() {
         return this.DOOR_TIME;
-    }
-
-
-    private int getTargetFloor() {
-        return this.targetFloor;
     }
 
     public int getCurrentFloor() {
@@ -96,10 +87,6 @@ public class Elevator {
         return this.idleTime;
     }
 
-    private int getRequestFromIdle() {
-        return floorRequests.get(0).getRequestStart();
-    }
-
     private void setTargetFloor(int target) {
         this.targetFloor = target;
         if(target >= getCurrentFloor()) {
@@ -121,39 +108,11 @@ public class Elevator {
         this.isExchangingPassengers = status;
     }
 
-    public boolean getPassengerExchangeStatus(){
-        return this.isExchangingPassengers;
-    }
-
     private int getRidersSize() {
         return this.riders.size();
     }
 
-    private int getFloorRequestsSize() {
-        return this.floorRequests.size();
-    }
-
-    private Person getRiderById(int id) {
-        return this.riders.get(id);
-    }
-
-    private Request getFloorRequestById(int id) {
-        return this.floorRequests.get(id);
-    }
-
     /////////// END GETTERS AND SETTERS /////////////////////////
-
-    private void removeFloorRequestById(int id) {
-        this.floorRequests.remove(id);
-    }
-
-    private void removeRiderById(int id) {
-        this.riders.remove(id);
-    }
-
-    private void addRider(Person p) {
-        this.riders.add(p);
-    }
 
     private ElevatorDisplay.Direction matchDirection(Direction direction) {
         if(direction == Direction.UP) {
@@ -282,35 +241,9 @@ public class Elevator {
 
             }
 
-            //TODO remove floor request here: see test 1, floor request should disappear here
 
-//            for (int i = 0; i < flr.getWaitingPeople(getDirection()).size(); i++) {
-//                Person person = flr.getWaitingPeople(getDirection()).get(i);
-//                riders.add(person);
-//                System.out.println("**********************");
-//            }
-
-
-//            flr.getWaitingPeople(getDirection()).forEach((person) -> {
-//                //move to elevator
-//                riders.add(person);
-//                //remove from floor
-//
-//
-//
-//                flr.removePersonFromFloor(person);
-//
-//            });
         }
 
-
-        //remove from floor request queue
-//        floorRequests.forEach((waiter)->{
-//            if(waiter.getRequestStart() == getCurrentFloor()) {
-
-//                floorRequests.remove(floorRequests.indexOf(waiter));
-//            }
-//        });
     }
 
     private void elevatorToFloor() {
@@ -393,10 +326,6 @@ public class Elevator {
             stops.add(request.getRequestStart());
         }
         setIdleTime(0);
-    }
-
-    private void removeStopFromQueue(int floor) {
-        stops.remove(floor);
     }
 
     private int getStopQueueSize() {

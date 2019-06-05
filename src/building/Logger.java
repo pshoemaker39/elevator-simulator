@@ -134,7 +134,4 @@ public class Logger {
         System.out.println(output);
     }
 
-
-    //TODO correct min logic, set direction correctly
-
 }

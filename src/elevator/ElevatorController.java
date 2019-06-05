@@ -13,6 +13,7 @@ public class ElevatorController {
 
     private ArrayList<Elevator> elevators = new ArrayList<>();
     private static ElevatorController instance;
+    public static int NUM_ELEVATORS;
 
     public static ElevatorController getInstance() {
         if(instance == null) {
