@@ -31,13 +31,13 @@ public class ElevatorController {
 
     public void addRequestFromFloor(int elevId, Request request) {
 
-        getElevator(elevId).addStopToQueue(request);
+        //getElevator(elevId).addStopToQueue(request);
 
         RequestOptimizer ro = new RequestOptimizer();
 
         ro.addRequestToQueue(request);
 
-        ro.evaluateRequest(request);
+        ro.evaluateRequest(request, getElevators());
 
         if(ro.hasIdentifiedElevator) {
             //if you can identify an elevator, add the request

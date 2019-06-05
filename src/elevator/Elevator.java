@@ -27,8 +27,8 @@ public class Elevator {
     private Direction direction;
     private int currentFloor;
     private int targetFloor;
-    private final ArrayList<Request> floorRequests = new ArrayList<>();
-    private final ArrayList<Person> riders = new ArrayList<>();
+    public final ArrayList<Request> floorRequests = new ArrayList<>();
+    public final ArrayList<Person> riders = new ArrayList<>();
     private final ArrayList<Integer> stops = new ArrayList<>();
     private Request requestFromIdle;
     private long idleTime;
@@ -64,7 +64,7 @@ public class Elevator {
         return this.targetFloor;
     }
 
-    private int getCurrentFloor() {
+    public int getCurrentFloor() {
         return this.currentFloor;
     }
 
@@ -72,7 +72,7 @@ public class Elevator {
         this.currentFloor = floor;
     }
 
-    private Direction getDirection() {
+    public Direction getDirection() {
         return this.direction;
     }
 
@@ -92,7 +92,7 @@ public class Elevator {
         this.idleTime = time;
     }
 
-    private long getIdleTime() {
+    public long getIdleTime() {
         return this.idleTime;
     }
 
@@ -121,7 +121,7 @@ public class Elevator {
         this.isExchangingPassengers = status;
     }
 
-    private boolean getPassengerExchangeStatus(){
+    public boolean getPassengerExchangeStatus(){
         return this.isExchangingPassengers;
     }
 

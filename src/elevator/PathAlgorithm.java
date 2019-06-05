@@ -1,5 +1,6 @@
 package elevator;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 interface PathAlgorithm {
@@ -17,9 +18,7 @@ interface PathAlgorithm {
 
     void removeRequest(Request request);
 
-    void evaluateRequest(Request request);
-
-
+    void evaluateRequest(Request request, ArrayList<Elevator> elevators);
 
 
 }
